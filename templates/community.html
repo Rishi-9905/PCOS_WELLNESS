@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community | PCOS Wellness</title>
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .community-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .header-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        .hero-community {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .hero-community h1 {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        .hero-community p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+        #image-preview {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        /* New Interaction Styles */
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .post-user {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .post-time {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .post-delete-btn {
+            color: #ff4d4d;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+        .post-delete-btn:hover {
+            opacity: 1;
+        }
+        .post-interactions {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        .interaction-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            text-decoration: none;
+        }
+        .interaction-btn:hover {
+            color: var(--primary);
+        }
+        .interaction-btn.active {
+            color: var(--primary);
+        }
+        .comment-section {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 1rem;
+        }
+        .comment {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .comment-user {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+            color: var(--primary);
+        }
+        .comment-text {
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+        .comment-input-group {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+        .comment-input {
+            flex: 1;
+            padding: 0.8rem 1.2rem;
+            border-radius: 25px;
+            border: 1px solid rgba(0,0,0,0.1);
+            background: white;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .comment-input:focus {
+            border-color: var(--primary);
+        }
+        .comment-submit {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+        .comment-submit:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Botanical Background Animations -->
+    <div class="botanical-bg">
+        <svg class="vine vine-1" viewBox="0 0 200 400">
+            <path d="M0,400 Q50,300 10,200 T80,100" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linecap="round"/>
+            <circle class="flower flower-1" cx="80" cy="100" r="8" fill="var(--secondary)" />
+            <circle class="flower flower-2" cx="40" cy="250" r="5" fill="var(--accent)" />
+        </svg>
+        <svg class="vine vine-2" viewBox="0 0 200 400">
+            <path d="M200,0 Q150,100 190,200 T120,300" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linecap="round"/>
+            <circle class="flower flower-3" cx="120" cy="300" r="10" fill="var(--secondary)" />
+            <circle class="flower flower-4" cx="170" cy="150" r="6" fill="var(--accent)" />
+        </svg>
+        <div class="doodle-flower df-1"><i class="fas fa-seedling"></i></div>
+        <div class="doodle-flower df-2"><i class="fas fa-leaf"></i></div>
+        <div class="doodle-flower df-3"><i class="fas fa-spa"></i></div>
+    </div>
+
+    <div class="community-container">
+        <div class="header-nav">
+            <a href="{{ url_for('home') }}" style="font-size: 1.5rem; font-weight: bold; color: var(--primary); text-decoration: none;">PCOS Wellness</a>
+            <div class="nav-links">
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('profile') }}">Profile</a>
+                <a href="{{ url_for('logout') }}" style="color: #E07A5F;">Logout</a>
+            </div>
+        </div>
+
+        <div class="hero-community">
+            <h1>Our Community</h1>
+            <p>Share your journey, find strength, and connect with sisters who understand.</p>
+        </div>
+
+        <!-- Create Post Section -->
+        <div class="create-post-card">
+            <h3 style="margin-bottom: 1rem; color: var(--primary);"><i class="fas fa-pen-fancy"></i> Share Your Story</h3>
+            <form action="/create_post" method="POST" enctype="multipart/form-data">
+                <textarea name="content" class="post-textarea" placeholder="How is your journey going today? Share a tip, a win, or just say hello..." rows="4" required></textarea>
+                
+                <img id="image-preview" src="#" alt="Preview">
+                
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <label class="upload-btn-shorthand">
+                        <i class="fas fa-image"></i> Add Journey Pic
+                        <input type="file" name="image" style="display: none;" accept="image/*" onchange="previewImage(this)">
+                    </label>
+                    <button type="submit" class="btn-primary" style="margin: 0; padding: 0.8rem 2rem;">Post to Community</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Community Feed -->
+        <div class="community-feed">
+            {% for post in posts %}
+            <div class="glass-card post-card">
+                <div class="post-header">
+                    <div class="post-user">
+                        <i class="fas fa-user-circle" style="font-size: 1.5rem;"></i>
+                        {{ post.username }}
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <span class="post-time">{{ post.timestamp }}</span>
+                        {% if post.username == username %}
+                        <a href="{{ url_for('delete_post', post_id=post.id) }}" class="post-delete-btn" onclick="return confirm('Delete this post?')">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="post-content" style="font-size: 1.1rem; line-height: 1.6;">
+                    {{ post.content }}
+                </div>
+                
+                {% if post.image_path %}
+                <img src="{{ url_for('static', filename=post.image_path) }}" class="post-image" alt="Journey Pic" style="width: 100%; border-radius: 15px; margin-top: 1rem; max-height: 400px; object-fit: cover;">
+                {% endif %}
+
+                <div class="post-interactions">
+                    <a href="{{ url_for('like_post', post_id=post.id) }}" class="interaction-btn">
+                        <i class="fas fa-heart"></i>
+                        Support ({{ post.likes|default(0) }})
+                    </a>
+                    <button class="interaction-btn" onclick="toggleComments('{{ post.id }}')">
+                        <i class="fas fa-comment"></i>
+                        Encouragement ({{ post.comment_count|default(0) }})
+                    </button>
+                </div>
+
+                <div class="comment-section" id="comments-{{ post.id }}" style="display: none;">
+                    <div class="comments-list">
+                        {% for comment in post.comments %}
+                        <div class="comment">
+                            <div class="comment-user">{{ comment.username }}</div>
+                            <div class="comment-text">{{ comment.comment }}</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">{{ comment.timestamp }}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <form action="{{ url_for('add_comment', post_id=post.id) }}" method="POST" class="comment-input-group">
+                        <input type="text" name="comment" class="comment-input" placeholder="Write a word of encouragement..." required>
+                        <button type="submit" class="comment-submit">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+            
+            {% if not posts %}
+            <div style="text-align: center; color: var(--text-muted); padding: 3rem;">
+                <i class="fas fa-leaf" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                <p>No stories shared yet. Be the first to start the journey!</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        function toggleComments(postId) {
+            const section = document.getElementById('comments-' + postId);
+            if (section.style.display === 'none') {
+                section.style.display = 'block';
+            } else {
+                section.style.display = 'none';
+            }
+        }
+
+        function previewImage(input) {
+            const preview = document.getElementById('image-preview');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+</body>
+</html>

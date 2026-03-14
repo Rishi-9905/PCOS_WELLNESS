@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - PCOS Wellness</title>
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .profile-container {
+            max-width: 900px;
+            margin: 3rem auto;
+        }
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            background: var(--white);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            box-shadow: var(--shadow-classic);
+        }
+        .history-table th, .history-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        .history-table th {
+            background: var(--primary);
+            color: var(--white);
+            font-family: 'Playfair Display', serif;
+        }
+        .history-table tr:hover {
+            background: rgba(242, 204, 143, 0.05);
+        }
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Botanical Background Animations -->
+    <div class="botanical-bg">
+        <svg class="vine vine-1" viewBox="0 0 200 400">
+            <path d="M0,400 Q50,300 10,200 T80,100" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linecap="round"/>
+            <circle class="flower flower-1" cx="80" cy="100" r="8" fill="var(--secondary)" />
+            <circle class="flower flower-2" cx="40" cy="250" r="5" fill="var(--accent)" />
+        </svg>
+        <svg class="vine vine-2" viewBox="0 0 200 400">
+            <path d="M200,0 Q150,100 190,200 T120,300" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linecap="round"/>
+            <circle class="flower flower-3" cx="120" cy="300" r="10" fill="var(--secondary)" />
+            <circle class="flower flower-4" cx="170" cy="150" r="6" fill="var(--accent)" />
+        </svg>
+        <div class="doodle-flower df-1"><i class="fas fa-seedling"></i></div>
+        <div class="doodle-flower df-2"><i class="fas fa-leaf"></i></div>
+        <div class="doodle-flower df-3"><i class="fas fa-spa"></i></div>
+    </div>
+
+    <div class="glass-container profile-container">
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+          <a href="{{ url_for('home') }}" class="back-link"><i class="fas fa-arrow-left"></i> Back to Assessment</a>
+          <div>
+              <a href="{{ url_for('community') }}" style="color: var(--primary); text-decoration: none; margin-right: 15px;"><i class="fas fa-users"></i> Community</a>
+              <a href="{{ url_for('logout') }}" class="logout-link">Logout <i class="fas fa-sign-out-alt"></i></a>
+          </div>
+      </div>
+
+        <header class="app-header" style="text-align: left; border-bottom: none; margin-bottom: 1rem;">
+            <h1>My Wellness Journey</h1>
+            <p>Welcome back, <b>{{ username }}</b>!</p>
+        </header>
+
+        <div class="form-section">
+            <h3 class="section-title"><i class="fas fa-history"></i> Your Prediction History</h3>
+            {% if history %}
+                <div style="overflow-x: auto;">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Date & Time</th>
+                                <th>Age</th>
+                                <th>Weight (kg)</th>
+                                <th>Recommended Categories</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for record in history %}
+                            <tr>
+                                <td>{{ record['Timestamp'] }}</td>
+                                <td>{{ record['Age'] }}</td>
+                                <td>{{ record['Weight_kg'] or record['Weight'] }}</td>
+                                <td>{{ record['Recommended_Categories'] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p style="color: var(--text-muted); font-style: italic;">No history found yet. Take your first assessment to see it here!</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

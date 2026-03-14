@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - PCOS Wellness</title>
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .login-card {
+            max-width: 400px;
+            margin: 80px auto;
+            padding: 2.5rem;
+            text-align: center;
+        }
+        .login-input {
+            margin-bottom: 1.5rem;
+        }
+        .error-msg {
+            color: #E07A5F;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        .success-msg {
+            color: #2D5D4B;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Botanical Background Animations -->
+    <div class="botanical-bg">
+        <svg class="vine vine-1" viewBox="0 0 200 400">
+            <path d="M0,400 Q50,300 10,200 T80,100" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linecap="round"/>
+            <circle class="flower flower-1" cx="80" cy="100" r="8" fill="var(--secondary)" />
+            <circle class="flower flower-2" cx="40" cy="250" r="5" fill="var(--accent)" />
+        </svg>
+        <svg class="vine vine-2" viewBox="0 0 200 400">
+            <path d="M200,0 Q150,100 190,200 T120,300" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linecap="round"/>
+            <circle class="flower flower-3" cx="120" cy="300" r="10" fill="var(--secondary)" />
+            <circle class="flower flower-4" cx="170" cy="150" r="6" fill="var(--accent)" />
+        </svg>
+        <div class="doodle-flower df-1"><i class="fas fa-seedling"></i></div>
+        <div class="doodle-flower df-2"><i class="fas fa-leaf"></i></div>
+        <div class="doodle-flower df-3"><i class="fas fa-spa"></i></div>
+    </div>
+
+    <div class="glass-container login-card">
+        <header class="app-header" style="margin-bottom: 2rem;">
+            <h1 style="font-size: 2.5rem;">Join Us</h1>
+            <p>Create your PCOS Wellness account</p>
+        </header>
+
+        {% if error %}
+            <p class="error-msg">{{ error }}</p>
+        {% endif %}
+        {% if success %}
+            <p class="success-msg">{{ success }}</p>
+        {% endif %}
+
+        <form method="POST" action="/register">
+            <div class="login-input">
+                <label class="form-label">Username</label>
+                <input type="text" name="username" class="form-control" placeholder="Choose a username" required>
+            </div>
+            <div class="login-input">
+                <label class="form-label">Email Address</label>
+                <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+            </div>
+            <div class="login-input">
+                <label class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Create a password" required>
+            </div>
+
+            <button type="submit" class="btn-primary">Sign Up</button>
+        </form>
+        
+        <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+            Already have an account? <a href="{{ url_for('login') }}" style="color: var(--secondary); font-weight: bold;">Login here</a>
+        </p>
+    </div>
+</body>
+</html>

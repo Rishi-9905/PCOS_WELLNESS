@@ -1,0 +1,20 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env/
+.venv/
+ENV/
+
+# Local databases/logs (to avoid overwriting production data)
+User_Analysis_Logs.xlsx
+users.xlsx
+community_posts.xlsx
+comments.xlsx
+email_logs.txt
+
+# Uploads
+static/uploads/posts/

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Curated Plan | PCOS Wellness</title>
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+  <!-- Botanical Background Animations -->
+  <div class="botanical-bg">
+      <svg class="vine vine-1" viewBox="0 0 200 400">
+          <path d="M0,400 Q50,300 10,200 T80,100" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linecap="round"/>
+          <circle class="flower flower-1" cx="80" cy="100" r="8" fill="var(--secondary)" />
+          <circle class="flower flower-2" cx="40" cy="250" r="5" fill="var(--accent)" />
+      </svg>
+      <svg class="vine vine-2" viewBox="0 0 200 400">
+          <path d="M200,0 Q150,100 190,200 T120,300" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linecap="round"/>
+          <circle class="flower flower-3" cx="120" cy="300" r="10" fill="var(--secondary)" />
+          <circle class="flower flower-4" cx="170" cy="150" r="6" fill="var(--accent)" />
+      </svg>
+      <div class="doodle-flower df-1"><i class="fas fa-seedling"></i></div>
+      <div class="doodle-flower df-2"><i class="fas fa-leaf"></i></div>
+      <div class="doodle-flower df-3"><i class="fas fa-spa"></i></div>
+  </div>
+
+  <div class="glass-container">
+
+    <header class="app-header">
+      <h1>Your Curated Plan</h1>
+      <p>A personalized selection for your well-being.</p>
+    </header>
+
+    {% if recommended_foods %}
+    <div class="results-grid">
+      {% for category, foods in recommended_foods.items() %}
+      <div class="result-card">
+        <h3><i class="fas fa-seedling"></i> {{ category }}</h3>
+        <ul class="food-list">
+          {% for food in foods %}
+          <li>{{ food }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="glass-container" style="text-align: center; box-shadow: none; border: none; background: transparent;">
+      <h3>No specific recommendations found based on your inputs.</h3>
+      <p>Try adjusting your preferences or consulting a specialist.</p>
+    </div>
+    {% endif %}
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+          <a href="{{ url_for('home') }}" class="back-link"><i class="fas fa-arrow-left"></i> Back to Assessment</a>
+          <div>
+              <a href="{{ url_for('community') }}" style="color: var(--primary); text-decoration: none; margin-right: 15px;"><i class="fas fa-users"></i> Community</a>
+              <a href="{{ url_for('logout') }}" class="logout-link">Logout <i class="fas fa-sign-out-alt"></i></a>
+          </div>
+      </div>
+  </div>
+
+</body>
+
+</html>
