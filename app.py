@@ -68,6 +68,9 @@ def get_users():
         df['email'] = ""
     if 'last_login' not in df.columns:
         df['last_login'] = ""
+    # Enforce string types to prevent numeric passwords from breaking login
+    df['username'] = df['username'].fillna('').astype(str).str.replace(r'\.0$', '', regex=True)
+    df['password'] = df['password'].fillna('').astype(str).str.replace(r'\.0$', '', regex=True)
     return df
 
 def save_user(username, password):
